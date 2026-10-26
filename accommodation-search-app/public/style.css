@@ -1,0 +1,165 @@
+:root {
+  --bg: #f5f6fa;
+  --panel: #ffffff;
+  --text: #1a1d29;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --accent: #0071c2;
+  --accent-dark: #00437a;
+  --danger-bg: #fdecec;
+  --danger-text: #b3261e;
+  --radius: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161f;
+    --panel: #1d202c;
+    --text: #eceef2;
+    --muted: #9aa0ad;
+    --border: #2c303d;
+    --accent: #3fa9f5;
+    --accent-dark: #1c7ed6;
+    --danger-bg: #3a1f1f;
+    --danger-text: #ff8a80;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  min-height: 100vh;
+}
+
+.topbar {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  padding: 24px 20px;
+  text-align: center;
+}
+.topbar h1 { margin: 0 0 6px; font-size: 1.6rem; }
+.topbar__sub { margin: 0; opacity: 0.9; font-size: 0.9rem; }
+.topbar__sub code { background: rgba(255,255,255,0.15); padding: 2px 6px; border-radius: 4px; }
+
+.layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 800px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.panel h2 { margin-top: 0; font-size: 1.1rem; }
+
+.field { margin-bottom: 14px; display: flex; flex-direction: column; gap: 5px; }
+.field label { font-size: 0.85rem; color: var(--muted); }
+.field input, .field select {
+  padding: 9px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.95rem;
+}
+.field small { color: var(--muted); font-size: 0.75rem; }
+
+.field-group { display: flex; gap: 10px; flex-wrap: wrap; }
+.field-group .field { flex: 1; min-width: 110px; }
+
+.btn-primary {
+  width: 100%;
+  padding: 11px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 6px;
+}
+.btn-primary:hover { background: var(--accent-dark); }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.hint { font-size: 0.75rem; color: var(--muted); margin-top: 10px; }
+
+.status { margin-bottom: 14px; font-size: 0.9rem; color: var(--muted); }
+.status.error { background: var(--danger-bg); color: var(--danger-text); padding: 12px; border-radius: 8px; }
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+}
+
+.card__photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--bg);
+}
+.card__photo--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 2rem;
+}
+
+.card__body { padding: 12px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.card__name { font-weight: 700; font-size: 1rem; }
+.card__address { font-size: 0.8rem; color: var(--muted); }
+.card__rating { font-size: 0.8rem; display: flex; gap: 8px; align-items: center; }
+.card__stars { color: #f5a623; }
+.card__score {
+  background: var(--accent);
+  color: #fff;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.card__price { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; }
+.card__price-value { font-size: 1.15rem; font-weight: 700; color: var(--accent-dark); }
+.card__price-note { font-size: 0.7rem; color: var(--muted); }
+
+.card__links { display: flex; gap: 8px; padding: 0 12px 12px; }
+.card__links a {
+  flex: 1;
+  text-align: center;
+  padding: 7px;
+  border-radius: 7px;
+  font-size: 0.8rem;
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+.card__links a.primary { background: var(--accent); color: #fff; }
+
+.empty-state { text-align: center; padding: 40px 10px; color: var(--muted); }

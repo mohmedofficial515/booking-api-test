@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>بحث عن أماكن الإقامة — Booking.com Demand API</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <h1>🏨 بحث عن أماكن الإقامة</h1>
+  <p class="topbar__sub">يستخدم نقطتي <code>/accommodations/search</code> و <code>/accommodations/details</code> من Booking.com Demand API</p>
+</header>
+
+<main class="layout">
+
+  <form id="searchForm" class="panel">
+    <h2>معايير البحث</h2>
+
+    <div class="field">
+      <label>نوع الموقع</label>
+      <select id="locationType">
+        <option value="country">دولة (Country code)</option>
+        <option value="city">مدينة (City ID)</option>
+        <option value="region">منطقة (Region ID)</option>
+        <option value="coordinates">إحداثيات (Lat/Lng/Radius)</option>
+      </select>
+    </div>
+
+    <div class="field" data-loc="country">
+      <label>كود الدولة (حرفان، مثل nl، eg، sa)</label>
+      <input type="text" id="country" maxlength="2" placeholder="nl" value="nl" />
+    </div>
+
+    <div class="field" data-loc="city" hidden>
+      <label>معرّف المدينة (City ID)</label>
+      <input type="number" id="cityId" placeholder="-2140479" />
+      <small>احصل عليه من نقطة /common/locations/cities</small>
+    </div>
+
+    <div class="field" data-loc="region" hidden>
+      <label>معرّف المنطقة (Region ID)</label>
+      <input type="number" id="regionId" placeholder="1199" />
+    </div>
+
+    <div class="field-group" data-loc="coordinates" hidden>
+      <div class="field">
+        <label>خط العرض (Latitude)</label>
+        <input type="number" step="any" id="latitude" placeholder="52.3676" />
+      </div>
+      <div class="field">
+        <label>خط الطول (Longitude)</label>
+        <input type="number" step="any" id="longitude" placeholder="4.9041" />
+      </div>
+      <div class="field">
+        <label>نصف القطر بالكيلومتر</label>
+        <input type="number" step="any" id="radius" placeholder="10" value="10" />
+      </div>
+    </div>
+
+    <div class="field-group">
+      <div class="field">
+        <label>تاريخ الوصول (Check-in)</label>
+        <input type="date" id="checkin" required />
+      </div>
+      <div class="field">
+        <label>تاريخ المغادرة (Check-out)</label>
+        <input type="date" id="checkout" required />
+      </div>
+    </div>
+
+    <div class="field-group">
+      <div class="field">
+        <label>عدد البالغين</label>
+        <input type="number" id="adults" min="1" value="2" required />
+      </div>
+      <div class="field">
+        <label>عدد الغرف</label>
+        <input type="number" id="rooms" min="1" value="1" required />
+      </div>
+    </div>
+
+    <div class="field">
+      <label>أعمار الأطفال (اختياري، مفصولة بفاصلة)</label>
+      <input type="text" id="childrenAges" placeholder="مثال: 4,9" />
+    </div>
+
+    <div class="field-group">
+      <div class="field">
+        <label>عملة العرض (اختياري)</label>
+        <input type="text" id="currency" maxlength="3" placeholder="USD" />
+      </div>
+      <div class="field">
+        <label>دولة الحاجز (Booker country)</label>
+        <input type="text" id="bookerCountry" maxlength="2" value="nl" required />
+      </div>
+    </div>
+
+    <div class="field">
+      <label>منصّة الحاجز (Booker platform)</label>
+      <select id="bookerPlatform">
+        <option value="desktop">Desktop</option>
+        <option value="mobile">Mobile</option>
+        <option value="tablet">Tablet</option>
+        <option value="android">Android</option>
+        <option value="ios">iOS</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>عدد النتائج (Rows)</label>
+      <input type="number" id="rows" min="1" max="100" value="20" />
+    </div>
+
+    <button type="submit" class="btn-primary">بحث</button>
+    <p class="hint">⚠️ يتطلب ضبط <code>BOOKING_AFFILIATE_ID</code> و <code>BOOKING_BEARER_TOKEN</code> في ملف <code>.env</code> على الخادم المحلي.</p>
+  </form>
+
+  <section class="panel results-panel">
+    <div id="status" class="status"></div>
+    <div id="results" class="results-grid"></div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
